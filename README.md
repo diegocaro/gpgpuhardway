@@ -18,7 +18,17 @@ In the third part ... aha!
 
 Some important links:
  - GPGPU Tutorial with opengl: http://www.mathematik.uni-dortmund.de/~goeddeke/gpgpu/tutorial.html
- - WebGL Tutorial (many examples!): http://www.webglacademy.com/
  - Linear algebra for game developers: http://blog.wolfire.com/2009/07/linear-algebra-for-game-developers-part-1/
    - Follow part-2, part-3 and part-4
  - Mathematics of Perspective Drawing: http://www.math.utah.edu/~treiberg/Perspect/Perspect.htm
+ - Learning Modern 3D Graphics Programming https://web.archive.org/web/20150225192611/http://www.arcsynthesis.org/gltut/index.html
+   - https://bitbucket.org/alfonse/gltut/src
+   - pdf version http://webstaff.itn.liu.se/~stegu/TNM046-2015/LearningModern3DGraphicsProgramming.pdf 
+ - Hardware-accelerated interactive data visualization for neuroscience in Python http://journal.frontiersin.org/article/10.3389/fninf.2013.00036/full
+ - Vispy resources http://vispy.org/resources.html
+ - Learn Computer Graphics Programming from Scratch http://scratchapixel.com/
+
+Shaders: 
+ - Shader toys (great examples of shader programs!) https://www.shadertoy.com/
+ - WebGL Tutorial (many examples!): http://www.webglacademy.com/
+ 
