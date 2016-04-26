@@ -28,6 +28,8 @@ Some important links:
  - Vispy resources http://vispy.org/resources.html
  - Learn Computer Graphics Programming from Scratch http://scratchapixel.com/
  - https://www3.ntu.edu.sg/home/ehchua/programming/index.html#OpenGL
+
+
 Shaders: 
  - Shader toys (great examples of shader programs!) https://www.shadertoy.com/
  - WebGL Tutorial (many examples!): http://www.webglacademy.com/
