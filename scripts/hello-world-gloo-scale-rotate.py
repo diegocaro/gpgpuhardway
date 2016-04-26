@@ -49,6 +49,7 @@ def timer(fps):
     clock += 0.005 * 1000.0/fps
     program['scale'] = (1+np.cos(clock))/2.0
     program['m_transform'] = [ (np.cos(clock),np.sin(clock),0,0), (-np.sin(clock),np.cos(clock),0,0), (0,0,1,0), (0,0,0,1) ]
+    print program['m_transform']
     glut.glutTimerFunc(1000/fps, timer, fps)
     glut.glutPostRedisplay()
 
