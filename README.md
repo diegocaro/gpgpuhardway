@@ -27,7 +27,7 @@ Some important links:
  - Hardware-accelerated interactive data visualization for neuroscience in Python http://journal.frontiersin.org/article/10.3389/fninf.2013.00036/full
  - Vispy resources http://vispy.org/resources.html
  - Learn Computer Graphics Programming from Scratch http://scratchapixel.com/
-
+ - https://www3.ntu.edu.sg/home/ehchua/programming/index.html#OpenGL
 Shaders: 
  - Shader toys (great examples of shader programs!) https://www.shadertoy.com/
  - WebGL Tutorial (many examples!): http://www.webglacademy.com/
