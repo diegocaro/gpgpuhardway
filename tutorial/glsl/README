@@ -1,0 +1,2 @@
+brew install glew
+brew install homebrew/science/opencv
