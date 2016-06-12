@@ -30,12 +30,11 @@ Some important links:
  - https://www3.ntu.edu.sg/home/ehchua/programming/index.html#OpenGL
  - An intro to modern OpenGL http://duriansoftware.com/joe/An-intro-to-modern-OpenGL.-Table-of-Contents.html
  - WebGL Fundamentals http://webglfundamentals.org/
- - http://http.developer.nvidia.com/GPUGems2/gpugems2_part04.html
- - http://http.developer.nvidia.com/GPUGems2/gpugems2_part06.html
-
 
 Shaders: 
  - Shader toys (great examples of shader programs!) https://www.shadertoy.com/
  - WebGL Tutorial (many examples!): http://www.webglacademy.com/
 
- 
+Books:
+ - https://developer.nvidia.com/gpugems/GPUGems3/gpugems3_pref01.html
+

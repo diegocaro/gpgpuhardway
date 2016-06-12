@@ -4,6 +4,7 @@
 #include "common.h"
 #include "controls.h"
 
+
 //initial position of the camera
 glm::vec3 g_position = glm::vec3( 0, 0, 2 );
 const float speed = 3.0f; // 3 units / second
@@ -58,4 +59,42 @@ void computeViewProjectionMatrices(GLFWwindow* window){
         );
     last_time = current_time;
 }
-                       
+
+
+
+void computeStereoViewProjectionMatrices(GLFWwindow* window,
+     float IOD, float depthZ, bool left_eye){
+     int width, height;
+     glfwGetWindowSize(window, &width, &height);
+     //up vector
+     glm::vec3 up = glm::vec3(0,-1,0);
+     glm::vec3 direction_z(0, 0, -1);
+     //mirror the parameters with the right eye
+     float left_right_direction = -1.0f;
+     if(left_eye)
+       left_right_direction = 1.0f;
+     float aspect_ratio = (float)width/(float)height;
+     float nearZ = 1.0f;
+     float farZ = 100.0f;
+     double frustumshift = (IOD/2)*nearZ/depthZ;
+     float top = tan(g_initial_fov/2)*nearZ;
+     float right =
+   aspect_ratio*top+frustumshift*left_right_direction;
+   //half screen
+     float left =
+       -aspect_ratio*top+frustumshift*left_right_direction;
+     float bottom = -top;
+     g_projection_matrix = glm::frustum(left, right, bottom, top,
+       nearZ, farZ);
+     // update the view matrix
+    g_view_matrix =
+    glm::lookAt(
+      g_position-direction_z+
+        glm::vec3(left_right_direction*IOD/2, 0, 0),
+        //eye position
+      g_position+
+        glm::vec3(left_right_direction*IOD/2, 0, 0),
+        //centre position
+      up //up direction
+    );
+}

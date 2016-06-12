@@ -1,1 +1,6 @@
 brew install versions/glfw3
+
+
+TODO:
+ - Add movements to the camera (assets)
+ - Order the code... 
