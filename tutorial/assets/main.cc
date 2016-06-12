@@ -94,7 +94,7 @@ int main(int argc, char **argv) {
        
     //create a GLFW windows object
     window = glfwCreateWindow(WINDOWS_WIDTH, WINDOWS_HEIGHT,
-            "Chapter 4 - Texture Mapping", NULL, NULL);
+            "Chapter 6 - 3D Models", NULL, NULL);
     if(!window){
         fprintf( stderr, "Failed to open GLFW window. If you " \
             "have an Intel GPU, they are not 3.3 compatible. Try " \
