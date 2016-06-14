@@ -33,7 +33,7 @@
         // Output position of the vertex, in clip space : MVP * position
         gl_Position =  MVP * vec4(vertexPosition_modelspace, 1.0f);
         // remapping the color based on the depth (z) value.
-        color_based_on_position = heatMap(vertexPosition_modelspace.z,
-          -1.0f, 1.0f);
+        color_based_on_position = heatMap(vertexPosition_modelspace.z, -1.0f, 1.0f);
+	//color_based_on_position = vec4(1.0f, 1.0f, 1.0f, 0.2f);
       }
       

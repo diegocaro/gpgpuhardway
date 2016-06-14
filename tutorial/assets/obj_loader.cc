@@ -37,13 +37,13 @@ unsigned int ObjLoader::recursiveGetNumVertices(const struct aiNode *nd){
             const struct aiFace* face = &mesh-> mFaces[t];
             counter+=3*face->mNumIndices;
         }
-        printf("recursiveGetNumVertices: mNumFaces %d\n", mesh->mNumFaces);
+        //printf("recursiveGetNumVertices: mNumFaces %d\n", mesh->mNumFaces);
     }
     //traverse all children nodes
     for (n = 0; n < nd->mNumChildren; ++n) {
         counter+=recursiveGetNumVertices(nd-> mChildren[n]);
     }
-    printf("recursiveGetNumVertices: counter %d\n", counter);
+    //printf("recursiveGetNumVertices: counter %d\n", counter);
     return counter;
 }
 
@@ -129,10 +129,10 @@ unsigned int v_counter, const GLenum draw_mode){
     unsigned int i;
     unsigned int n = 0, t;
     unsigned int total_count = v_counter;
-    printf("v_counter: %d\n",v_counter);
+    //printf("v_counter: %d\n",v_counter);
     // draw all meshes assigned to this node
     for (n=0; n < nd->mNumMeshes; ++n) {
-        printf("mesh number: %d\n", n);
+        //printf("mesh number: %d\n", n);
         unsigned int count=0;
         const struct aiMesh* mesh = scene-> mMeshes[nd->mMeshes[n]];
         for (t = 0; t < mesh->mNumFaces; ++t) {
@@ -145,7 +145,7 @@ unsigned int v_counter, const GLenum draw_mode){
     v_counter = total_count;
     // draw all children nodes recursively
     for (n = 0; n < nd->mNumChildren; ++n) {
-        printf("num children: %d\n", n);
+        //printf("num children: %d\n", n);
         v_counter = recursiveDrawing(nd-> mChildren[n], v_counter, draw_mode);
     }
     return v_counter;

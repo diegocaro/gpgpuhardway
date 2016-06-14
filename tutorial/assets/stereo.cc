@@ -25,9 +25,10 @@ float z_offset = 2.0f;
 float rotateY = 0.0f;
 float rotateX = 0.0f;
 
-float IOD = 1.0f;
+float IOD = 2.0f;
 float depthZ = 2.0f;
 //Our vertices
+bool stereo = true;
 
 /*
 //UV map for the vertices
@@ -151,12 +152,12 @@ int main(int argc, char **argv) {
     GLuint matrix_id = glGetUniformLocation(program_id, "MVP");
 
     //get a handler for our "myTextureSampler" uniform
-    //GLuint texture_sampler_id = glGetUniformLocation(program_id, "textureSampler");
+    GLuint texture_sampler_id = glGetUniformLocation(program_id, "textureSampler");
 
     //attribute ID for the variables
-    GLint attribute_vertex;//, attribute_uv;
+    GLint attribute_vertex, attribute_uv;
     attribute_vertex = glGetAttribLocation(program_id, "vertexPosition_modelspace");
-    //attribute_uv = glGetAttribLocation(program_id, "vertexUV");
+    attribute_uv = glGetAttribLocation(program_id, "vertexUV");
        
     //vertex array
     GLuint vertex_array_id;
@@ -194,7 +195,6 @@ int main(int argc, char **argv) {
     glBindBuffer(GL_ARRAY_BUFFER, uv_buffer);
     glVertexAttribPointer(attribute_uv, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
 */
-    
     //main loop
     while(!glfwWindowShouldClose(window)){
         //clear the screen
@@ -204,32 +204,80 @@ int main(int argc, char **argv) {
 
 
         glfwGetFramebufferSize(window, &width, &height);
-        // show data
-     //draw the left eye (but full screen)
-        glViewport(0, 0, width, height);
-        //compute the MVP matrix from the IOD and virtual image plane distance
-        //computeStereoViewProjectionMatrices(window, IOD, depthZ, true);
-        computeViewProjectionMatrices(window);
-        //get the View and Model Matrix and apply to the rendering
+       
+        if(stereo){
+        //draw the LEFT eye, left half of the screen
+        glViewport(0, 0, width/2, height);
+        //computes the MVP matrix from the IOD and virtual image plane distance computeStereoViewProjectionMatrices(g_window, IOD, depthZ, true); //gets the View and Model Matrix and apply to the rendering glm::mat4 projection_matrix = getProjectionMatrix();
         glm::mat4 projection_matrix = getProjectionMatrix();
         glm::mat4 view_matrix = getViewMatrix();
         glm::mat4 model_matrix = glm::mat4(1.0);
-        model_matrix = glm::translate(model_matrix, glm::vec3(0.0f, 0.0f, -depthZ));
-        model_matrix = glm::rotate(model_matrix, glm::pi<float>()*rotateY, glm::vec3(0.0f, 1.0f, 0.0f));
-        model_matrix = glm::rotate(model_matrix, glm::pi<float>()*rotateX, glm::vec3(1.0f, 0.0f, 0.0f));
-        glm::mat4 mvp = projection_matrix * view_matrix * model_matrix;
-        //send our transformation to the currently bound shader,
-        //in the "MVP" uniform variable
-        glUniformMatrix4fv(matrix_id, 1, GL_FALSE, &mvp[0][0]);
-        /* render scene with different modes that can be enabled separately
-          to get different effects */
-        if (drawTriangles)
-            obj_loader->draw(GL_TRIANGLES);
-        if(drawPoints)
-          obj_loader->draw(GL_POINTS);
-        
-        if(drawLines)
-          obj_loader->draw(GL_LINES);
+        model_matrix = glm::translate(model_matrix, glm::vec3(0.0f,
+               0.0f, -depthZ));
+             model_matrix = glm::rotate(model_matrix, glm::pi<float>() *
+               rotateY, glm::vec3(0.0f, 1.0f, 0.0f));
+             model_matrix = glm::rotate(model_matrix, glm::pi<float>() *
+               rotateX, glm::vec3(1.0f, 0.0f, 0.0f));
+             glm::mat4 mvp = projection_matrix * view_matrix * model_matrix;
+             //sends our transformation to the currently bound shader,
+             //in the "MVP" uniform variable
+             glUniformMatrix4fv(matrix_id, 1, GL_FALSE, &mvp[0][0]);
+             //render scene, with different drawing modes
+             if(drawTriangles)
+             obj_loader->draw(GL_TRIANGLES);
+             if(drawPoints)
+               obj_loader->draw(GL_POINTS);
+             if(drawLines)
+               obj_loader->draw(GL_LINES);
+             //Draw the RIGHT eye, right half of the screen
+             glViewport(width/2, 0, width/2, height);
+             computeStereoViewProjectionMatrices(window, IOD, depthZ,
+               false);
+             projection_matrix = getProjectionMatrix();
+             view_matrix = getViewMatrix();
+             model_matrix = glm::mat4(1.0);
+             model_matrix = glm::translate(model_matrix, glm::vec3(0.0f,
+               0.0f, -depthZ));
+             model_matrix = glm::rotate(model_matrix, glm::pi<float>() *
+               rotateY, glm::vec3(0.0f, 1.0f, 0.0f));
+             model_matrix = glm::rotate(model_matrix, glm::pi<float>() *
+                    rotateX, glm::vec3(1.0f, 0.0f, 0.0f));
+                  mvp = projection_matrix * view_matrix * model_matrix;
+                  glUniformMatrix4fv(matrix_id, 1, GL_FALSE, &mvp[0][0]);
+                  if(drawTriangles)
+                    obj_loader->draw(GL_TRIANGLES);
+                  if(drawPoints)
+                    obj_loader->draw(GL_POINTS);
+                  if(drawLines)
+                    obj_loader->draw(GL_LINES);
+                }
+                else {
+                 //draw the left eye (but full screen)
+                    glViewport(0, 0, width, height);
+                    //compute the MVP matrix from the IOD and virtual image plane distance
+                    //computeStereoViewProjectionMatrices(window, IOD, depthZ, true);
+                    computeViewProjectionMatrices(window);
+                    //get the View and Model Matrix and apply to the rendering
+                    glm::mat4 projection_matrix = getProjectionMatrix();
+                    glm::mat4 view_matrix = getViewMatrix();
+                    glm::mat4 model_matrix = glm::mat4(1.0);
+                    model_matrix = glm::translate(model_matrix, glm::vec3(0.0f, 0.0f, -depthZ));
+                    model_matrix = glm::rotate(model_matrix, glm::pi<float>()*rotateY, glm::vec3(0.0f, 1.0f, 0.0f));
+                    model_matrix = glm::rotate(model_matrix, glm::pi<float>()*rotateX, glm::vec3(1.0f, 0.0f, 0.0f));
+                    glm::mat4 mvp = projection_matrix * view_matrix * model_matrix;
+                    //send our transformation to the currently bound shader,
+                    //in the "MVP" uniform variable
+                    glUniformMatrix4fv(matrix_id, 1, GL_FALSE, &mvp[0][0]);
+                    /* render scene with different modes that can be enabled separately
+                      to get different effects */
+                    if (drawTriangles)
+                    obj_loader->draw(GL_TRIANGLES);
+                    if(drawPoints)
+                      obj_loader->draw(GL_POINTS);
+                    if(drawLines)
+                      obj_loader->draw(GL_LINES);
+                }
+       
 
         
         
